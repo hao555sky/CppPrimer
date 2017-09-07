@@ -4,13 +4,13 @@
 
 > 查阅你使用的编译器的文档，确定所使用的文件命名约定。变异并运行第二页的main程序
 
-![Screen Shot 2017-09-07 at 10.44.35 AM](/Users/hao/Documents/program/C++/CppPrimer/Chapter_1/screeshots/Screen Shot 2017-09-07 at 10.44.35 AM.png)
+![Alt text](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_1/screenshots/ex1_1.png)
 
 ## 练习1.2
 
 > 改写程序，让它返回-1。返回值-1通常被当作程序错误的标识。重新编译并运行你的程序，观察你的系统如何处理main返回的错误标识。
 
-![Screen Shot 2017-09-07 at 11.16.23 AM](/Users/hao/Documents/program/C++/CppPrimer/Chapter_1/screeshots/Screen Shot 2017-09-07 at 11.16.23 AM.png)
+![Alt text](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_1/screenshots/ex1_2.png)
 
 为什么返回255呢？[原因](http://www.jb51.net/article/73377.htm)
 
@@ -103,7 +103,7 @@ int main()
 
 
 
-![Screen Shot 2017-09-07 at 5.40.01 PM](/Users/hao/Documents/program/C++/CppPrimer/Chapter_1/screeshots/Screen Shot 2017-09-07 at 5.40.01 PM.png)
+![Alt text](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_1/screenshots/ex1_7.png)
 
 ## 练习1.8
 
@@ -120,7 +120,7 @@ std:: cout << /* "/" / "/*" */;
 
 > 第一，二，四个合法。
 >
-> 第三个不合法![Screen Shot 2017-09-07 at 5.52.07 PM](/Users/hao/Documents/program/C++/CppPrimer/Chapter_1/screeshots/Screen Shot 2017-09-07 at 5.52.07 PM.png)
+> 第三个不合法![Alt text](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_1/screenshots/ex1_8.png)
 >
 > 
 
