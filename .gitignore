@@ -30,3 +30,10 @@
 *.exe
 *.out
 *.app
+
+# own
+.DS_Store
+.DS_Store/*
+screenshots/
+knowledge/
+
