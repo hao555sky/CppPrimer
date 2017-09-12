@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 
 // 输入两个整数，输出整数范围内的所有整数
 int main()
