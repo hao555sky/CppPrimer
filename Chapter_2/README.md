@@ -18,3 +18,41 @@ C++保证short和int至少16位，long至少32位，long long至少64位
 
 ![Alt text](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_2/screenshots/ex2_1.png)
 
+## 练习2.2
+
+> 计算按揭贷款时，对于利率、本金和付款分别应选择何种数据类型？说明你的理由
+
+使用`double`或者`float`
+
+* 银行利率一般为0.30%
+* 本金一般为¥888.88
+* 付款一般为¥666.66
+
+## 练习2.3
+
+读程序写结果
+
+```cpp
+    unsigned u = 10, u2 = 42;
+	std::cout << u2 - u << std::endl;
+	std::cout << u - u2 << std::endl;
+
+	int i = 10, i2 = 42;
+	std::cout << i2 - i << std::endl;
+	std::cout << i - i2 << std::endl;
+	std::cout << i - u << std::endl;
+	std::cout << u - i << std::endl;
+```
+
+输出
+
+> 32    4294967264    32    -32.   0    0
+
+## 练习2.4
+
+> 编写程序检查你的估计是否正确，如果不正确，请仔细研读本节知道弄明白问题所在。
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_2/ex2_3.cpp)
+
+![Alt text](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_2/screenshots/ex2_3.png)
+
