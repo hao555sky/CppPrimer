@@ -56,3 +56,131 @@ C++保证short和int至少16位，long至少32位，long long至少64位
 
 ![Alt text](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_2/screenshots/ex2_3.png)
 
+## 练习2.5
+
+> 指出下述字面值的数据类型并说明每一组内集中字面值的区别
+>
+> (a) 'a', L'a', "a", L"a"
+>
+> (b) 10, 10u, 10L, 10uL, 012, 0xC
+>
+> (c) 3.14, 3.14f, 3.14L
+>
+> (d) 10, 10u, 10., 10e-2
+
+(a): 字符字面值，宽字符字面值，字符串字面值，宽字符串字面值 
+
+(b): 十进制整形，十进制无符号整型，十进制长整型，十进制无符号长整型，八进制整型，十六进制整型
+
+(c): double，float，long double
+
+(d): 十进制整形，十进制无符号整型，double，double
+
+## 练习2.6
+
+> 下面两组定义是否有区别，如果有，请叙述之：
+
+```cpp
+int month = 9, day = 7;
+int month = 09, day = 07;
+```
+
+第一行定义了两个十进制整形
+
+第二行定义了两个八进制整型，但是八进制中没有9，故month变量无效
+
+## 练习2.7
+
+> 下述字面值表示何种含义？他们各自的数据类型是什么？
+>
+> (a) "Who goes with F\145rgus?\012"
+>
+> (b) 3.14e1L    (c) 1024f   (d) 3.14L
+
+(a) Who goes with Fergus?(换行).   string
+
+(b) 31.4    long double
+
+(c) 1024.   float
+
+(d) 3.14 long double
+
+Reference:
+
+* [ASCII Table](http://www.asciitable.com/)
+
+## 练习2.8
+
+> 请利用转义序列编写一段程序，要求先输出2M，然后转到新一行。修改程序使其输出2，然后输出制表符，再输出M，最后转到新一行。
+
+```cpp
+#include <iostream>
+
+int main()
+{
+	std::cout << "\062\115\12";
+	std::cout << "\062\t\115\012";
+	return 0;
+}
+```
+
+## 练习2.9
+
+> 解释下列定义的含义。对于非法的定义，请说明错在何处并将其改正。
+>
+> (a) std::cin >> int input_value;              (b) int i = { 3.14 };
+>
+> (c) double salary = wage = 9999.99;    (d) int i = 3.14;
+
+(a) 非法，error: expected '(' for function-style cast or type construction
+
+```cpp
+int input_value;
+std::cin >> input_value;
+```
+
+(b) 非法，error: type 'double' cannot be narrowed to 'int' in initializer list
+
+```Cpp
+double i = { 3.14 };
+```
+
+(c) 非法，error: use of undeclared identifier 'wage'
+
+```cpp
+double wage;
+double salary = wage = 9999.99;
+```
+
+(d) 合法，但是会丢失小数部分
+
+```cpp
+double i = 3.14;
+```
+
+## 练习2.10
+
+> 下列棉量的初值分别是什么？
+
+```cpp
+std::string global_str;
+int global_int;
+int main()
+{
+    int local_int;
+    std::string local_str;
+}
+```
+
+* `global_str`类型为string，string类规定如果没有指定初值，则默认初始化为空串
+* `global int`类型为内置类型int，且位于任何函数体之外，则被默认初始化为0
+* `local_int`类型为内置类型int，且位于main函数体内，则不被初始化，值未定义
+* `local_str`类型为string，string类规定如果没有指定初值，则默认初始化为空串
+
+**Note**
+
+> 定义于函数体内的内置类型的对象如果没有初始化，则其值未定义。类的对象如果没有显示地初始化，则其值由类确定
+
+**Reference**
+
+基本内置类型 实体书P30  PDF P56  [Link](http://en.cppreference.com/w/cpp/language/types)
