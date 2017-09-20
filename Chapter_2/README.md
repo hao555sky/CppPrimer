@@ -521,3 +521,79 @@ const auto j2 = i, &k2 = i; // const int ; const int &
 ```
 
 [code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_2/ex2_35.cpp)
+
+## 练习2.36
+
+> 关于下面的代码，请指出每一个变量的类型以及程序结束时他们各自的值
+
+```cpp
+int a = 3, b = 4;  // int, int; a = 3, b = 4;
+decltype(a) c = a;  // int; a = 3, b = 4, c = 3;
+decltype((b)) d = a;  // int &; a = 3, b = 4, c = 3, d = 3;
+++c;  // int; a = 3, b = 4, c = 4, d = 3;
+++d;  // int &; a = 4, b = 4, c = 4, d = 4; 
+```
+
+## 练习2.37
+
+> 赋值是会产生引用的一类典型表达式，引用的类型就是左值的类型。也就是说，如果i是int，则表达式i=x的类型是int&。根据这一特点，请指出下面的代码中每一个变量的类型和值
+
+```cpp
+int a = 3, b = 4;  // int, int; a = 3, b = 4;
+decltype(a) c = a;  // int; a = 3, b = 4, c = 3;
+decltype(a = b) d = a;  // int &; a = 3, b = 4, c = 3, d = 3;
+```
+
+## 练习2.38
+
+> 说明由decltype指定类型和由auto制定类型有何区别。请举出一个例子，decltype指定的类型与auto指定的类型一样；再举一个例子，decltype指定的类型与auto指定的类型不一样。
+
+**不同**
+
+* decltyoe处理顶层const和引用的方式与auto不同。如果decltype使用的表达式是一个变量，则decltype返回该变量的类型（包括顶层const和引用在内）
+* decltype的结果类型与表达式形式密切相关，若对于decltype所用的表达式来说，变量名加了括号，则会得到引用类型
+
+```cpp
+	int a = 3, &b = a; 
+
+	auto auto_a = a; // auto_a is int;
+	decltype(a) decltype_a = a;  // decltype_a is int;
+
+	auto auto_b = b;  // auto_b is int;
+	decltype(b) decltype_b = b;  //  decltype_b is int &;
+```
+
+**Reference**
+
+[[What is the difference between auto and decltype(auto) when returning from a function?](https://stackoverflow.com/questions/21369113/what-is-the-difference-between-auto-and-decltypeauto-when-returning-from-a-fun) 
+
+[[C++基本概念——细数auto和decltype之间的区别](http://blog.csdn.net/qq_14982047/article/details/50628075)
+
+## 练习2.39
+
+编译下面的程序观察其运行结果，注意，如果忘记写类定义体后面的分号会发生什么情况？记录下相关信息，以后可能会有用。
+
+```cpp
+struct Foll { }
+int main()
+{
+	return 0;
+}
+```
+
+**error: expected ';' after struct**
+
+## 练习2.40
+
+> 根据自己的理解写出Sales_data类，最好与书中的例子有所区别。
+
+```cpp
+struct Sales_data
+{
+	std::string bookNo;
+	std::string bookName;
+	double price = 0.0;
+	std::string author;
+};
+```
+
