@@ -597,3 +597,208 @@ struct Sales_data
 };
 ```
 
+## 练习2.41
+
+> 使用你自己的Sales_data类重写1.5.1节（第20页）、1.5.2节（第21页）和1.6节（第22页）的练习。眼下先把Sales_data类的定义和main函数放在同一个文件里
+
+**ex1.20**
+
+```cpp
+#include <iostream>
+
+struct Sales_data
+{
+	std::string bookNo;
+	unsigned units_sold = 0;
+	double revenue = 0.0;
+};
+
+int main()
+{
+	Sales_data book;
+	double price;
+	std::cin >> book.bookNo >> book.units_sold >> price;
+	book.revenue = book.units_sold * price;
+	std::cout << book.bookNo <<" " << book.units_sold <<" " << book.revenue << std::endl;
+
+	return 0;
+}
+```
+
+**ex1.21**
+
+```cpp
+#include <iostream>
+
+struct Sales_data
+{
+	std::string bookNo;
+	unsigned units_sold = 0;
+	double revenue = 0.0;
+};
+
+int main()
+{
+	double price = 0;
+	Sales_data data1, data2;
+	std::cin >> data1.bookNo >> data1.units_sold >> price;
+	std::cin >> data2.bookNo >> data2.units_sold >> price;
+	data2.revenue = data2.units_sold * price;
+	data1.revenue = data1.units_sold * price;
+
+	if(data1.bookNo == data2.bookNo)
+	{
+		unsigned total_units_sold = data1.units_sold + data2.units_sold;
+		double total_revenue = data1.revenue + data2.revenue;
+
+		std::cout << data1.bookNo << " " <<total_units_sold <<" " << total_revenue << " ";
+		if(total_units_sold != 0)
+			std::cout << total_revenue / total_units_sold << std::endl;
+		else
+			std::cout << "No sales" << std::endl;
+		return 0;
+	}
+	else
+	{
+		std::cerr << "Data must refer to same ISBN " << std::endl;
+		return -1;
+	}
+
+}
+```
+
+**ex1.23**
+
+```cpp
+#include <iostream>
+
+struct Sales_data
+{
+	std::string bookNo;
+	unsigned units_sold = 0;
+	double revenue = 0.0;
+};
+
+int main()
+{
+	Sales_data book;
+	double price = 0;
+	if(std::cin >> book.bookNo >> book.units_sold >> price)
+	{
+		int cnt = 1;
+		Sales_data currBook;
+		while(std::cin >> currBook.bookNo >> currBook.units_sold >> price)
+		{
+			if(currBook.bookNo == book.bookNo)
+				cnt++;
+			else
+			{
+				std::cout << book.bookNo <<" occurs " << cnt << " times" << std::endl;
+				cnt = 1;
+				book = currBook;
+			}
+		}
+		std::cout << book.bookNo <<" occurs " << cnt << " times" << std::endl;
+	}
+	else
+	{
+		std::cerr << "No data?" << std::endl;
+		return -1;
+	}
+	return 0;
+}
+```
+
+## 练习2.42
+
+> 根据你自己的理解重写一个Sales_data.h文件，并以此为基础重做2.62节（第67页）的练习
+
+**ex1.20**
+
+```cpp
+#include <iostream>
+#include "Sales_data.h"
+
+int main()
+{
+	Sales_data book;
+	double price;
+	std::cin >> book.bookNo >> book.units_sold >> price;
+	book.revenue = book.units_sold * price;
+	std::cout << book.bookNo <<" " << book.units_sold <<" " << book.revenue << std::endl;
+
+	return 0;
+}
+```
+
+**ex1.21**
+
+```cpp
+#include <iostream>
+#include "Sales_data.h"
+
+int main()
+{
+	double price = 0;
+	Sales_data data1, data2;
+	std::cin >> data1.bookNo >> data1.units_sold >> price;
+	std::cin >> data2.bookNo >> data2.units_sold >> price;
+	data2.revenue = data2.units_sold * price;
+	data1.revenue = data1.units_sold * price;
+
+	if(data1.bookNo == data2.bookNo)
+	{
+		unsigned total_units_sold = data1.units_sold + data2.units_sold;
+		double total_revenue = data1.revenue + data2.revenue;
+
+		std::cout << data1.bookNo << " " <<total_units_sold <<" " << total_revenue << " ";
+		if(total_units_sold != 0)
+			std::cout << total_revenue / total_units_sold << std::endl;
+		else
+			std::cout << "No sales" << std::endl;
+		return 0;
+	}
+	else
+	{
+		std::cerr << "Data must refer to same ISBN " << std::endl;
+		return -1;
+	}
+
+}
+```
+
+**ex1.23**
+
+```cpp
+#include <iostream>
+#include "Sales_data.h"
+
+int main()
+{
+	Sales_data book;
+	double price = 0;
+	if(std::cin >> book.bookNo >> book.units_sold >> price)
+	{
+		int cnt = 1;
+		Sales_data currBook;
+		while(std::cin >> currBook.bookNo >> currBook.units_sold >> price)
+		{
+			if(currBook.bookNo == book.bookNo)
+				cnt++;
+			else
+			{
+				std::cout << book.bookNo <<" occurs " << cnt << " times" << std::endl;
+				cnt = 1;
+				book = currBook;
+			}
+		}
+		std::cout << book.bookNo <<" occurs " << cnt << " times" << std::endl;
+	}
+	else
+	{
+		std::cerr << "No data?" << std::endl;
+		return -1;
+	}
+	return 0;
+}
+```
