@@ -77,3 +77,51 @@ for (auto &c : s) { /* ... */ }
 ```
 
 如果不试图进行改变c的值，则合法，否则非法。c的类型是const char &
+
+## 练习3.12
+
+> 下列vector对象的定义有不正确的吗？如果有，请指出来。对于正确的，描述其执行结果；对于不正确的，说明其错误的原因。
+
+```cpp
+(a) vector<vector<int>> ivec; // 正确
+(b) vector<string> svec = ivec; // 不正确，类型不一致
+(c) vector<string> svec(10, "null"); // 正确，vector有10个元素，值为"null"
+```
+
+## 练习3.13
+
+> 下列的vector对象各包含多少个元素？这些元素的值分别是多少？
+
+```cpp
+(a) vector<int> v1;              (b) vector<int> v2(10);
+(b) vector<int> v3(10, 42);      (d) vector<int> v3{10};
+(e) vector<int> v5{10, 42};      (f) vector<string> v6{10};
+(g) vector<string> v7{10, "hi"}; 
+```
+
+(a) 1个元素，没有值;
+
+(b) 10个元素，默认值为0;
+
+(c) 10个元素，值为42;
+
+(d) 1个元素，值为10;
+
+(e )2个元素，值分别为10，42;
+
+(f) 10个元素，默认为空字符串;
+
+(g) 10个元素，值都为"hi";
+
+## 练习3.14
+
+> 编写一段程序，用cin读入一组整数并把她们存入一个vector对象.
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_14.cpp)
+
+## 练习3.15
+
+> 改写上题的程序，不过这次读入的是字符串。
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_15.cpp)
+
