@@ -125,3 +125,13 @@ for (auto &c : s) { /* ... */ }
 
 [code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_15.cpp)
 
+## [练习3.16](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_16.cpp)
+
+##[练习3.17](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_17.cpp)
+
+##[练习3.18](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_18.cpp)
+
+##[练习3.19](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_19.cpp)
+
+##[练习3.20](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_20.cpp)
+
