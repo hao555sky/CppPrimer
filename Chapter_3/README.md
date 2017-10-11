@@ -135,3 +135,21 @@ for (auto &c : s) { /* ... */ }
 
 ##[练习3.20](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_20.cpp)
 
+##[练习3.21](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_21.cpp)
+
+##[练习3.22](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_22.cpp)
+
+##[练习3.23](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_23.cpp)
+
+##[练习3.24](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_24.cpp)
+
+##[练习3.25](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_25.cpp)
+
+## 练习3.26
+
+> 在100页的二分搜索程序中，为什么用的是`mid = beg + (end - beg) / 2`, 而非`mid = (beg + end) / 2`?
+
+因为vector的迭代器没有定义+运算符，故`beg + end`是非法的，只能使用-运算符
+
+
+
