@@ -182,3 +182,113 @@ int main(){
 
 * 数组定长，不能随意增加元素
 * vector更好的支持std
+
+## 练习3.30
+
+> 指出下面代码的索引错误
+
+```cpp
+constexpr size_t array_size = 10;
+int ia[array_size];
+for(size_t ix = 1; ix <= array_size; ++ix)
+  ia[ix] = ix;
+```
+
+数组下标范围为[0, array_size - 1]
+
+## [练习3.31](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_31.cpp)
+
+##[练习3.32](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_32.cpp)
+
+## 练习3.33
+
+> 对于104页的程序来说，如果不初始化scores将发生什么？
+
+未初始化数组，其值未定义，不确定。
+
+## 练习3.34
+
+> 假定p1和p2指向同一个数组中的元素，则下面程序的功能是什么？什么情况下该程序是非法的？
+
+```cpp
+p1 += p2 - p1;
+```
+
+功能等同于`p1 = p2`,
+
+##[练习3.35](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_35.cpp)
+
+##[练习3.36](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_36.cpp)
+
+## 练习3.37
+
+> 下面的程序是何含义，程序的输出结果是什么？
+
+```cpp
+const char ca[] = {'h', 'e', 'l', 'l', '0'};
+const char *cp = ca;
+while(*cp){
+    cout << *cp << endl;
+    ++cp;
+}
+```
+
+输出ca的所有元素
+
+**WARNING**
+
+P123页示例讲到：传入C语言标准库函数的指针必须是以空字符作为结束的数组
+
+```cpp
+char ca[] = {'C', '+', '+'};  // 不以空字符结束
+cout << strlen(ca) << endl;   // 严重错误：ca没有以空字符结束
+```
+
+后来本地测试了一段代码
+
+```cpp
+const char ca[] = {'h', 'e', 'l', 'l', '0'};
+const char *cp = ca;
+while(*cp){
+    cout << *cp;
+  	++cp;
+}
+cout << strlen(ca) << " ";
+char ca2[] = {'C', '+', '+'};
+cout << strlen(ca2) << " ";
+```
+
+输出结果竟然是`helloC++8 8`,查阅资料发现字符串会以`helloC++`的方式存放在`.radata`区域中。`while(*cp)`会判断`*cp`是否为0，若不为0，则会继续输入字符，直到遇到0为止。所以如果修改代码为
+
+```cpp
+const char ca[] = {'h', 'e', 'l', 'l', '0', '\0'};
+char ca2[] = {'C', '+', '+', '\0'};
+```
+
+则存放在`.rodata`里的形式为`hello\0C++\0`， 程序就会正确执行。所以如果使用C风格字符串，小心。
+
+**Reference**
+
+* [pezy-exceise3.37](https://github.com/pezy/CppPrimer/tree/master/ch03)
+* C++ primer P123
+
+## 练习3.38
+
+> 在本节中我们提到，将两个指针相加不但是非法的，而且也没什么意思。请问为什么两个指针相加没什么意义？
+
+两个指针相减表示指针之间的距离；如果指针与整数相加减，表示指针向前或者向后移动整数距离。而如果两个指针相加，结果难以预料，没有意义。
+
+##[练习3.39](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_39.cpp)
+
+##[练习3.40](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_40.cpp)
+
+##[练习3.41](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_41.cpp)
+
+##[练习3.42](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_42.cpp)
+
+##[练习3.43](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_43.cpp)
+
+##[练习3.44](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_44.cpp)
+
+##[练习3.45](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_3/ex3_45.cpp)
+
