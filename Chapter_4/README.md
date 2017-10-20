@@ -184,3 +184,51 @@ pi = 0;
 * 若赋值运算符左右两个运算对象类型不同，则右侧运算对象会转换成左侧运算对象的类型
 * 赋值运算符满足右结合律`int ival, jval; ival = jval = 0;`
 
+
+## 练习4.17
+
+> 说明前置递增运算符和后置递增运算符的区别。
+
+前置递增运算符首先将运算对象加1，然后将改变后的对象作为求值结果，即前置版本将对象本身作为左值返回
+
+后置递增运算符将运算对象加1，但是会将运算对象改变之前的值的副本作为求值结果，即后置版本将对象原始值的副本作为右值返回。
+
+## 练习4.18
+
+> 如果第132页那个输出vector对象元素的while循环使用前置递增运算符，将得到什么结果？
+
+从vector的第二个元素开始输出，然后解引用`v.end()`，会得到不可预料的后果。
+
+## 练习4.19
+
+> 假设ptr的类型是指向int的指针、vec的类型是`vector<int>、ival`的类型是`int`，说明下面的表达式是何含义？如果有表达式不正确，为什么？应该如何修改？
+
+```cpp
+(a) ptr != 0 && *ptr++    (b) ival++ && ival   (c) vec[ival++] <= vec[ival]
+```
+
+(a) 检测ptr 不为空指针并且ptr指针指向的值
+
+(b) 检查ival 和 ival + 1 都不为0
+
+(c) 报错，因为左侧运算对象改变了ival的值，右侧对象又使用了该值，而运算对象的求值顺序却没有规定。
+
+修改 ： `vec[ival] <= vec[ival + 1]`
+
+**Note**
+
+内建的[逻辑](http://zh.cppreference.com/w/cpp/language/operator_logical) AND 运算符 && 和内建的逻辑 OR 运算符 || 的第一个（左）实参的每个值计算和副作用，均按顺序早于其第二个（右）实参的每个值计算和副作用。[求值的顺序](http://zh.cppreference.com/w/cpp/language/eval_order)
+
+## 练习4.20
+
+> 假设iter的类型是vector<string>::iterator， 说明下面的表达式是否合法。如果合法，表达式的含义是什么？如果不合法，错在何处？
+
+```cpp
+(a) *iter++;  // 合法，执行*iter, 然后++iter
+(b) (*iter)++;  // 非法，*iter为string，没有递增
+(c) *iter.empty();  // 非法，iter为迭代器，不能使用点操作符，应该使用'->'
+(d) iter->empty();  // 合法，iter指向string对象
+(e) ++*iter;  // 非法，string没有递增
+(f) iter++->empty();  // 合法，执行iter->empty(), 然后++iter
+```
+
