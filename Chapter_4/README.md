@@ -232,3 +232,45 @@ pi = 0;
 (f) iter++->empty();  // 合法，执行iter->empty(), 然后++iter
 ```
 
+## 练习4.23
+
+> 因为运算符的优先级问题，下面这条表达式无法通过编译。根据4.12节中的表（第147页）指出它的问题在哪里？应该如何修改？
+
+```cpp
+string s = "word";
+string p1 = s + s[s.size() - 1] == 's' ? "" : "s";
+```
+
+由于条件运算符优先级比算术运算符优先级低，故该语句等同于
+
+```cpp
+string p1 = s + s[size() - 1];
+p1 == 's' ? "" : "s";
+```
+
+修改为
+
+```cpp
+string s = "word";
+string p1 = s + (s[s.size() - 1] == 's' ? "" : "s");
+```
+
+**Note**
+
+猜一猜为什么使用单引号`'s'`, 因为p1为string类型，`'s'`为char类型，若为`"s"`，则类型为字符串，原式可通过编译。
+
+## 练习4.24
+
+> 本节的示例程序将成绩划分为high pass、pass 和fail三种，它的依据是条件运算符满足右结合律。假如条件运算符满足的是左结合律，求值过程将是怎样的？
+
+```cpp
+finalgrade = (grade > 90) ? "high pass" : (grade < 60) ? "fail" : "pass";
+```
+
+等同于
+
+```cpp
+finalgrade = ((grade > 90) ? "high pass" : (grade < 60)) ? "fail" : "pass";
+```
+
+如果`grade > 90`， 结果为`high pass`.否则执行失败，因为`?`两边的类型不同。
