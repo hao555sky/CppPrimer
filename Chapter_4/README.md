@@ -274,3 +274,119 @@ finalgrade = ((grade > 90) ? "high pass" : (grade < 60)) ? "fail" : "pass";
 ```
 
 如果`grade > 90`， 结果为`high pass`.否则执行失败，因为`?`两边的类型不同。
+
+## 练习4.25
+
+> 如果一台机器上`int`占32位、`char`占8位，用的是`Latin-1`字符集，其中字符`q`的二进制形式是`01110001`， 那么表达式`~q<<6`的值是什么？
+
+**不会，没看懂，以后填坑吧，僵**
+
+## 练习4.26
+
+> 在本节关于测验成绩的例子中，如果使用unsigned int作为quiz1的类型会发生什么情况？
+
+因为学生共有30人，`unsigned long`至少能够保证有32位，因此能够保证所有学生使用，而`unsigned int`只能保证最少16位，可能会导致未定义的行为。
+
+## 练习4.27
+
+> 下列表达式的结果是什么？
+
+```cpp
+unsigned long ul1 = 3, ul2 = 7;
+(a) ul1 & ul2  // 3
+(b) ul1 | ul2  // 7
+(c) ul1 && ul2  // True
+(d) ul1 || ul2  // True
+```
+
+## [练习4.28](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_4/ex4_28.cpp)
+
+## 练习4.29
+
+> 推断下面代码的输出结果并说明理由。实际运行这段程序，结果和你想象的一样吗？如果不一样，为什么？
+
+```cpp
+int x[10]; int *p = x;
+cout << sizeof(x) / sizeof(*x) << endl;  // Output: 10
+cout << sizeof(p) / sizeof(*p) << endl;  // Output: 2
+```
+
+不一样，第一个结果为10，通过整个数组的大小，除以单个元素的大小，得到元素的个数。第二个结果为2， 因为p为指针类型，故在64位机器占8个字节，而`*p`为int类型，占4字节，故结果为2
+
+**Reference**
+
+[Why the size of a pointer is 4bytes in C++](http://stackoverflow.com/a/2428809)
+
+[C/C++ 刁钻问题各个击破之细说 sizeof](http://blog.jobbole.com/107863/)
+
+## 练习4.30
+
+> 根据4.12节中的表（第147页），在下述表达式的适当位置加上括号，使得加上括号之后表达式的含义与原来的含义相同
+
+```cpp
+(a) sizeof x + y    // sizeof (x) + y. sizeof 有更高的优先级比 + 
+(b) sizeof p->men[i]    // sizeof (p->mem[i])
+(c) sizeof a < b    // sizeof (a) < b
+(d) sizeof f()    // 如果函数返回类型为void, 则报错。否则返回函数返回类型的大小
+```
+
+**Reference**
+
+[sizeof运算符](http://zh.cppreference.com/w/cpp/language/sizeof)
+
+## 练习4.31
+
+> 本节的程序使用了前置版本的递增运算符和递减运算符，解释为什么要用前置版本而不用后置版本。要想使用后置版本的递增递减运算符需要做那些改动？使用后置版本重写本节的程序。
+
+我们使用前置而不是用后置的原因是在`4.5节 递增和递减运算符`中的建议
+
+>建议：除非必须，否则不用递增递减运算符的后置版本
+>
+>有C语言北京的读者可能对优先使用前置版本递增运算符有所疑问，其实原因非常简单：前置版本的递增运算符避免了不必要的工作，他把值加1后直接返回改变了的运算对象。与之相比，后置版本需要将原始值存储下来以便返回这个未修改的内容。如果我们不需要修改前的值，那么后置版本的操作就是一种浪费。
+>
+>对于整数和指针类型来说，编译器可能对这种额外的工作进行一定的优化；但是对于相对复杂的迭代器类型，这种额外的工作就消耗巨大了。建议养成使用前置版本的习惯，这样不仅不需要担心性能的问题，而且更重要的是写出的代码会更符合变成的初衷。
+
+所以，这只是一个好习惯，对于本题代码来说，无需改动，如果需要后置版本的话
+
+```cpp
+for(vector<int>::size_type ix = 0; ix != ivec.size(); ix++, cnt--)
+    ivec[ix] = cnt;
+```
+
+这不是一个讨论前置后置的恰当例子，详情阅读[其他运算符](http://zh.cppreference.com/w/cpp/language/operator_other)
+
+**Reference**: [Usage of the Built-in Comma Operator](http://stackoverflow.com/questions/22591387/usage-of-the-built-in-comma-operator)
+
+## 练习4.32
+
+> 解释下面这个循环的含义。
+
+```cpp
+constexpr int size = 5;
+int ia[size] = {1, 2, 3, 4, 5};
+for(int *ptr = ia, ix = 0; ix != size && ptr != ia + size; ++ix, ++ptr){/* ...*/}
+```
+
+`ptr`和`ix`的作用都是遍历`ia`数组，只不过`ptr`用的是指针，而`ix`用的是数组下标的方式
+
+## 练习4.33
+
+> 根据4.12节中的表（第147页）说明下面这条表达式的含义。
+
+```cpp
+someValue ? ++x, ++y : --x, --y
+```
+
+由于逗号运算符的优先级最低，故该表达式等同于
+
+```cpp
+(someValue ? ++x, ++y : --x), --y 
+```
+
+如果`someValue`为真的haunted，执行`++x, ++y`, 然后执行`--y`,即`y`不变；若`someValue`为假的话，执行`--x`, 然后执行`--y`,故也等同于
+
+```cpp
+someValue ? ++x, y : (--x, --y);
+```
+
+即使最后结果与`x`没关系，但是`someValue`的真假也改变了对`x`
