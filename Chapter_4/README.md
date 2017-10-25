@@ -388,3 +388,64 @@ someValue ? ++x, ++y : --x, --y
 ```cpp
 someValue ? ++x, y : (--x, --y);
 ```
+
+即使最后结果与`x`没关系，但是`someValue`的真假也改变了对`x`
+
+## 练习4.34
+
+> 根据本节给出的变量定义，说明在下面的表达式中将发生什么样的类型转换。
+
+```cpp
+(a) if (fval)  // fval 不为0， 转化为true， 否则为false
+(b) dval = fval + ival;  // ival 转化为float， 与ival相加的结果转化为double
+(c) dval + ival * cval; // cval转化为int， 乘积转化为double与dval相加
+```
+
+**Note** ： 表达式中既有浮点类型也有整数类型shi
+
+## 练习4.35
+
+> 假设有如下的定义，
+
+```cpp
+char cval;     int ival;    unsigned int ui;    float fval;    double dval;
+```
+
+请回答在下面的表达式中发生了隐式类型转换吗？如果有，指出来。
+
+```cpp
+(a) cval = 'a' + 3;  // 发生了，'a' 首先转化为int， 相加结果转化为char
+(b) fval = ui - ival * 1.0;  // 发生了，ival 转化为double，ui转化为double，相减结果转化为float
+(c) dval = ui * fval;  // ui转化为float，然后转化为double
+(d) cval = ival + fval + dval;  // ival转化为float， 相加结果转化为double后与dval相加， 然后转化为char
+```
+
+## 练习4.36
+
+> 假设`i`是`int`类型，`d`是`double`类型，书写表达式`i *= d`使其执行整数类型的乘法而非浮点类型的乘法。
+
+```cpp
+i *= static_cast<int>(d)
+```
+
+## 练习4.37
+
+> 用命名的强制类型转换改写下列旧式的转换语句。
+
+```cpp
+int i;  double d;  const string *ps;  char *pc;  void *pv;
+(a) pv = (void*) ps;  // pv = const_cast<string*>(ps); or pv = static_cast<void*>(const_cast<string*>(ps));
+(b) i = int(*pc);  // i = static_cast<int>(*pc)
+(c) pv = &d;  // pv = static_cast<void*>(&d)
+(d) pc = (char*) pv; // pc = reinterpret_cat<char*>(pv)
+```
+
+## 练习4.38
+
+> 说明下面这条表达式的含义。
+
+```cpp
+double slope = static_cast<double>(j/i);
+```
+
+将`j/i`的结果强制转化为`double`，然后赋值给`slope`.
