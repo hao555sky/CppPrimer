@@ -232,3 +232,220 @@ pi = 0;
 (f) iter++->empty();  // 合法，执行iter->empty(), 然后++iter
 ```
 
+## 练习4.23
+
+> 因为运算符的优先级问题，下面这条表达式无法通过编译。根据4.12节中的表（第147页）指出它的问题在哪里？应该如何修改？
+
+```cpp
+string s = "word";
+string p1 = s + s[s.size() - 1] == 's' ? "" : "s";
+```
+
+由于条件运算符优先级比算术运算符优先级低，故该语句等同于
+
+```cpp
+string p1 = s + s[size() - 1];
+p1 == 's' ? "" : "s";
+```
+
+修改为
+
+```cpp
+string s = "word";
+string p1 = s + (s[s.size() - 1] == 's' ? "" : "s");
+```
+
+**Note**
+
+猜一猜为什么使用单引号`'s'`, 因为p1为string类型，`'s'`为char类型，若为`"s"`，则类型为字符串，原式可通过编译。
+
+## 练习4.24
+
+> 本节的示例程序将成绩划分为high pass、pass 和fail三种，它的依据是条件运算符满足右结合律。假如条件运算符满足的是左结合律，求值过程将是怎样的？
+
+```cpp
+finalgrade = (grade > 90) ? "high pass" : (grade < 60) ? "fail" : "pass";
+```
+
+等同于
+
+```cpp
+finalgrade = ((grade > 90) ? "high pass" : (grade < 60)) ? "fail" : "pass";
+```
+
+如果`grade > 90`， 结果为`high pass`.否则执行失败，因为`?`两边的类型不同。
+
+## 练习4.25
+
+> 如果一台机器上`int`占32位、`char`占8位，用的是`Latin-1`字符集，其中字符`q`的二进制形式是`01110001`， 那么表达式`~q<<6`的值是什么？
+
+**不会，没看懂，以后填坑吧，僵**
+
+## 练习4.26
+
+> 在本节关于测验成绩的例子中，如果使用unsigned int作为quiz1的类型会发生什么情况？
+
+因为学生共有30人，`unsigned long`至少能够保证有32位，因此能够保证所有学生使用，而`unsigned int`只能保证最少16位，可能会导致未定义的行为。
+
+## 练习4.27
+
+> 下列表达式的结果是什么？
+
+```cpp
+unsigned long ul1 = 3, ul2 = 7;
+(a) ul1 & ul2  // 3
+(b) ul1 | ul2  // 7
+(c) ul1 && ul2  // True
+(d) ul1 || ul2  // True
+```
+
+## [练习4.28](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_4/ex4_28.cpp)
+
+## 练习4.29
+
+> 推断下面代码的输出结果并说明理由。实际运行这段程序，结果和你想象的一样吗？如果不一样，为什么？
+
+```cpp
+int x[10]; int *p = x;
+cout << sizeof(x) / sizeof(*x) << endl;  // Output: 10
+cout << sizeof(p) / sizeof(*p) << endl;  // Output: 2
+```
+
+不一样，第一个结果为10，通过整个数组的大小，除以单个元素的大小，得到元素的个数。第二个结果为2， 因为p为指针类型，故在64位机器占8个字节，而`*p`为int类型，占4字节，故结果为2
+
+**Reference**
+
+[Why the size of a pointer is 4bytes in C++](http://stackoverflow.com/a/2428809)
+
+[C/C++ 刁钻问题各个击破之细说 sizeof](http://blog.jobbole.com/107863/)
+
+## 练习4.30
+
+> 根据4.12节中的表（第147页），在下述表达式的适当位置加上括号，使得加上括号之后表达式的含义与原来的含义相同
+
+```cpp
+(a) sizeof x + y    // sizeof (x) + y. sizeof 有更高的优先级比 + 
+(b) sizeof p->men[i]    // sizeof (p->mem[i])
+(c) sizeof a < b    // sizeof (a) < b
+(d) sizeof f()    // 如果函数返回类型为void, 则报错。否则返回函数返回类型的大小
+```
+
+**Reference**
+
+[sizeof运算符](http://zh.cppreference.com/w/cpp/language/sizeof)
+
+## 练习4.31
+
+> 本节的程序使用了前置版本的递增运算符和递减运算符，解释为什么要用前置版本而不用后置版本。要想使用后置版本的递增递减运算符需要做那些改动？使用后置版本重写本节的程序。
+
+我们使用前置而不是用后置的原因是在`4.5节 递增和递减运算符`中的建议
+
+>建议：除非必须，否则不用递增递减运算符的后置版本
+>
+>有C语言北京的读者可能对优先使用前置版本递增运算符有所疑问，其实原因非常简单：前置版本的递增运算符避免了不必要的工作，他把值加1后直接返回改变了的运算对象。与之相比，后置版本需要将原始值存储下来以便返回这个未修改的内容。如果我们不需要修改前的值，那么后置版本的操作就是一种浪费。
+>
+>对于整数和指针类型来说，编译器可能对这种额外的工作进行一定的优化；但是对于相对复杂的迭代器类型，这种额外的工作就消耗巨大了。建议养成使用前置版本的习惯，这样不仅不需要担心性能的问题，而且更重要的是写出的代码会更符合变成的初衷。
+
+所以，这只是一个好习惯，对于本题代码来说，无需改动，如果需要后置版本的话
+
+```cpp
+for(vector<int>::size_type ix = 0; ix != ivec.size(); ix++, cnt--)
+    ivec[ix] = cnt;
+```
+
+这不是一个讨论前置后置的恰当例子，详情阅读[其他运算符](http://zh.cppreference.com/w/cpp/language/operator_other)
+
+**Reference**: [Usage of the Built-in Comma Operator](http://stackoverflow.com/questions/22591387/usage-of-the-built-in-comma-operator)
+
+## 练习4.32
+
+> 解释下面这个循环的含义。
+
+```cpp
+constexpr int size = 5;
+int ia[size] = {1, 2, 3, 4, 5};
+for(int *ptr = ia, ix = 0; ix != size && ptr != ia + size; ++ix, ++ptr){/* ...*/}
+```
+
+`ptr`和`ix`的作用都是遍历`ia`数组，只不过`ptr`用的是指针，而`ix`用的是数组下标的方式
+
+## 练习4.33
+
+> 根据4.12节中的表（第147页）说明下面这条表达式的含义。
+
+```cpp
+someValue ? ++x, ++y : --x, --y
+```
+
+由于逗号运算符的优先级最低，故该表达式等同于
+
+```cpp
+(someValue ? ++x, ++y : --x), --y 
+```
+
+如果`someValue`为真的haunted，执行`++x, ++y`, 然后执行`--y`,即`y`不变；若`someValue`为假的话，执行`--x`, 然后执行`--y`,故也等同于
+
+```cpp
+someValue ? ++x, y : (--x, --y);
+```
+
+即使最后结果与`x`没关系，但是`someValue`的真假也改变了对`x`
+
+## 练习4.34
+
+> 根据本节给出的变量定义，说明在下面的表达式中将发生什么样的类型转换。
+
+```cpp
+(a) if (fval)  // fval 不为0， 转化为true， 否则为false
+(b) dval = fval + ival;  // ival 转化为float， 与ival相加的结果转化为double
+(c) dval + ival * cval; // cval转化为int， 乘积转化为double与dval相加
+```
+
+**Note** ： 表达式中既有浮点类型也有整数类型shi
+
+## 练习4.35
+
+> 假设有如下的定义，
+
+```cpp
+char cval;     int ival;    unsigned int ui;    float fval;    double dval;
+```
+
+请回答在下面的表达式中发生了隐式类型转换吗？如果有，指出来。
+
+```cpp
+(a) cval = 'a' + 3;  // 发生了，'a' 首先转化为int， 相加结果转化为char
+(b) fval = ui - ival * 1.0;  // 发生了，ival 转化为double，ui转化为double，相减结果转化为float
+(c) dval = ui * fval;  // ui转化为float，然后转化为double
+(d) cval = ival + fval + dval;  // ival转化为float， 相加结果转化为double后与dval相加， 然后转化为char
+```
+
+## 练习4.36
+
+> 假设`i`是`int`类型，`d`是`double`类型，书写表达式`i *= d`使其执行整数类型的乘法而非浮点类型的乘法。
+
+```cpp
+i *= static_cast<int>(d)
+```
+
+## 练习4.37
+
+> 用命名的强制类型转换改写下列旧式的转换语句。
+
+```cpp
+int i;  double d;  const string *ps;  char *pc;  void *pv;
+(a) pv = (void*) ps;  // pv = const_cast<string*>(ps); or pv = static_cast<void*>(const_cast<string*>(ps));
+(b) i = int(*pc);  // i = static_cast<int>(*pc)
+(c) pv = &d;  // pv = static_cast<void*>(&d)
+(d) pc = (char*) pv; // pc = reinterpret_cat<char*>(pv)
+```
+
+## 练习4.38
+
+> 说明下面这条表达式的含义。
+
+```cpp
+double slope = static_cast<double>(j/i);
+```
+
+将`j/i`的结果强制转化为`double`，然后赋值给`slope`.
