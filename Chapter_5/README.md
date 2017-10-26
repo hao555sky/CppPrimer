@@ -121,8 +121,124 @@ if (!status) {/* ... */}
 
 当一个if语句嵌套在另一个if语句内部时，很可能if分支会多于else分支，如果知道某个给定的else和哪个if匹配，这个问题被称作悬垂else。 C++ 规定else与离他最近的尚未匹配的if匹配。
 
-##[练习5.9](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_5/ex5_9.cpp)
+##练习5.9
 
-##[练习5.10](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_5/ex5_10.cpp)
+> 编写一段程序，使用一系列if语句统计从cin读入的文本中有多少元音字母。
 
-##[练习5.11](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_5/ex5_11.cpp)
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_5/ex5_9.cpp)
+
+##[练习5.10
+
+> 我们之前实现的统计元音字母的程序存在一个问题：如果元音字母以大写形式出现，不会被统计在内。编写一段程序，既统计元音字母的小写形式，也统计大写形式，也就是说，新程序遇到`a`和`A`都应该递增`aCnt`的值，以此类推。
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_5/ex5_10.cpp)
+
+##练习5.11
+
+> 修改统计元音字母的程序，使其也能统计空格、制表符和换行符的数量。
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_5/ex5_11.cpp)
+
+## 练习5.12
+
+> 修改统计元音字母的程序，使其能统计以下含有两个字符的字符序列的数量：`ff`、`fl`和`fi`。
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_5/ex5_12.cpp)
+
+## 练习5.13
+
+> 下面显示的每个程序都含有一个常见的编程错误，指出错误在哪里，然后修改它们。
+
+```cpp
+(a) unsigned aCnt = 0, eCnt = 0, iouCnt = 0;
+    char ch = next_text();
+    switch(ch){
+        case 'a': aCnt++;
+        case 'e': eCnt++;
+        default: iouCnt++;
+    }
+(b) unsigned index = some_value();
+    switch(index){
+        case 1:
+            int ix = get_value();
+        	ivec[ix] = index;
+        	break;
+        default:
+        	ix = ivec.size() - 1;
+        	ivec[ix] = index;
+    }
+(c) unsigned evenCnt = 0, oddCnt = 0;
+    int digit = get_num() % 10;
+    switch(digit){
+        case 1, 3, 5, 7, 9:
+            oddCnt++;
+            break;
+        case 2, 4, 6, 8, 10:
+            evenCnt++;
+            break;
+    }
+(d) unsigned ival = 512, jval = 1024, kval = 4096;
+	unsigned bufsize;
+	unsigned swt = get_bufCnt();
+	switch(swt){
+        case ival:
+        	bufsize = ival * sizeof(int);
+        	break;
+        case jval:
+        	bufsize = jval * sizeof(int);
+        	break;
+        case kval:
+        	bufsize = kval * sizeof(int);
+        	break;
+    }
+```
+
+```cpp
+(a) // Error: 应该添加break语句
+	unsigned aCnt = 0, eCnt = 0, iouCnt = 0;
+    char ch = next_text();
+    switch(ch){
+        case 'a': aCnt++; break;
+        case 'e': eCnt++; break;
+        default: iouCnt++; break;
+    }
+(b) // Error: ix 变量生命周期在case 1就结束了
+	unsigned index = some_value();
+	int ix;
+    switch(index){
+        case 1:
+            ix = get_value();
+        	ivec[ix] = index;
+        	break;
+        default:
+        	ix = ivec.size() - 1;
+        	ivec[ix] = index;
+    }
+(c) // Error: case 标签语法错误
+	unsigned evenCnt = 0, oddCnt = 0;
+    int digit = get_num() % 10;
+    switch(digit){
+        case 1: case 3: case: 5 case: 7 case 9:
+            oddCnt++;
+            break;
+        case 2: case 4: case 6: case 8: case 10:
+            evenCnt++;
+            break;
+    }
+(d) // Error: case标签必须是常量表达式。
+	const unsigned ival = 512, jval = 1024, kval = 4096;
+	unsigned bufsize;
+	unsigned swt = get_bufCnt();
+	switch(swt){
+        case ival:
+        	bufsize = ival * sizeof(int);
+        	break;
+        case jval:
+        	bufsize = jval * sizeof(int);
+        	break;
+        case kval:
+        	bufsize = kval * sizeof(int);
+        	break;
+    }
+```
+
