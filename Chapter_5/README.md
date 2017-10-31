@@ -242,3 +242,103 @@ if (!status) {/* ... */}
     }
 ```
 
+## 练习5.14
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_5/ex5_14.cpp)
+
+## 练习 5.15
+
+> 说明下列循环的含义并改正其中的错误。
+
+```cpp
+(a) for (int ix = 0; ix != sz; ++ix) { /* ... */ }
+    if (ix != sz)
+        // ...
+(b) int ix;
+    for(ix != sz; ++ix) { /* ... */ }
+(c) for(int ix = 0; ix != sz; ++ix, ++sz) { /* ... */ }
+```
+
+```cpp
+(a) int ix;
+	for (ix = 0; ix != sz; ++ix) { /* ... */ }
+    if (ix != sz)
+        // ...
+(b) int ix;
+    for(ix = 0; ix != sz; ++ix) { /* ... */ }
+(c) for(int ix = 0; ix != sz; ++ix) { /* ... */ }
+```
+
+## 练习5.16
+
+> while循环特别适用于那种条件保持不变、反复执行操作的情况，例如，当未达到文件末尾时不断读取下一个值。for循环则更像是在按步骤迭代，它的索引值在某个范围内依次变化。根据每种循环的习惯用法各自编写一段程序，然后分别用另一种循环改写。如果只能使用一种循环，你倾向于使用哪种的？为什么？
+
+```cpp
+// while习惯
+int i;
+while(cin >> i)
+    // ...
+// 与上while相同
+for(int i = 0; cin >> i;)
+    // ...
+// for 习惯
+for (int i = 0; i != sz; ++i)
+    // ...
+// 与上for相同
+int i = 0;
+while(i != sz)
+{
+    ++i;
+    // ...
+}
+```
+
+我喜欢`for`循环，因为`简洁`并且创建的变量脱离循环后不会污染外部范围，并且减少了命名冲突的而可能性，有更高的可维护性。
+
+## 练习5.17
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_5/ex5_17.cpp)
+
+## 练习5.18
+
+> 说明下列循环的含义并改正其中的错误。
+
+```cpp
+(a) do 
+        int v1, v2;
+        cout << "Please enter two numbers to sum:" ;
+		if (cin >> v1 >> v2)
+        	cout << "Sum is: " << v1 + v2 << endl;
+	while(cin);
+(b) do{
+		// ...
+	}while(int ival = get_response());
+(c) do{
+    	int ival = get_response();
+	}while(ival);
+```
+
+```cpp
+(a) do {
+    	int v1, v2;
+        cout << "Please enter two numbers to sum:" ;
+		if (cin >> v1 >> v2)
+        	cout << "Sum is: " << v1 + v2 << endl;
+	}  while(cin);
+(b) int ival;
+	do{
+		// ...
+	}while(ival = get_response());
+(c) int ival = get_response();
+	do{
+    	int ival = get_response();
+	}while(ival);
+```
+
+## 练习5.19
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_5/ex5_19.cpp)
+
+## 练习5.20
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_5/ex5_20.cpp)
