@@ -342,3 +342,36 @@ while(i != sz)
 ## 练习5.20
 
 [code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_5/ex5_20.cpp)
+
+## 练习5.21
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_5/ex5_21.cpp)
+
+## 练习5.22
+
+> 本节的最后一个例子跳回到begin，其实使用循环能更好的完成该任务。重写这段代码，注意不再使用goto语句。
+
+```cpp
+begin:
+	int sz = get_size();
+	if(sz <= 0){
+        goto begin;
+    }
+```
+
+```cpp
+for(int sz = get_size(); sz <= 0; sz = get_size())
+  ;
+```
+
+## 练习5.23
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_5/ex5_23.cpp)
+
+## 练习5.24
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_5/ex5_24.cpp)
+
+## 练习5.25
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_5/ex5_25.cpp)
