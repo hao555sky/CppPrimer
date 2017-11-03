@@ -250,6 +250,40 @@ void print(const int (&ia)[10]) { /* ... */ }
 
 **Reference** : http://stackoverflow.com/questions/26530659/confused-about-array-parameters
 
-## 练习6.26 && 练习6.27
+## 练习6.26 && 练习6.26
 
-[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_6/ex6_26cpp)
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_6/ex6_25cpp)
+
+## 练习6.27
+
+> 编写一个函数，它的参数是`initializer_list<int>`类型的对象，函数的功能是计算列表中所有元素的和。
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_6/ex6_27cpp)
+
+## 练习6.28
+
+`elem`的类型是`const string &`
+
+## 练习6.29
+
+根据`initializer_list`元素的类型决定，如果元素类型是[PODType](http://en.cppreference.com/w/cpp/concept/PODType), 不需要用引用，因为`POD`拷贝很容易。如果不是，用引用(`const`)比较好。
+
+## 练习6.30
+
+> 错误#1：没有返回值
+>
+> 错误#2：控制流可能尚未返回任何值就结束了函数的执行。
+
+## 练习6.31
+
+> 什么情况下返回的引用无效？什么情况下返回常量的引用无效？
+
+当返回函数中局部对象的引用是错误的。
+
+## 练习6.32
+
+合法，给数组赋值`0~9`
+
+## 练习6.33
+
+> 编写一个递归函数，输出`vector`对象的内容。
