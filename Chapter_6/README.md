@@ -287,3 +287,118 @@ void print(const int (&ia)[10]) { /* ... */ }
 ## 练习6.33
 
 > 编写一个递归函数，输出`vector`对象的内容。
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_6/ex6_23cpp)
+
+## 练习6.34
+
+如果递归的停止条件变为`if (val != 0)`，可能会有两种情况，第一种参数为正数，递归将会正确的在0处停止。第二种参数为负数，递归可能不会停止。结果导致溢出。
+
+## 练习6.35
+
+递归函数将会一直使用`val`作为参数，可能发生递归循环。
+
+## 练习6.36
+
+```cpp
+string (&func())[10];
+```
+
+## 练习6.37
+
+```cpp
+// 类型别名
+using attr = string[10];
+arrt & func();
+
+// 尾置返回类型
+auto func() -> string(&)[10];
+
+// decltype
+decltype(string [10]) &func();
+```
+
+## 练习6.38
+
+```cpp
+decltype(odd) &arrPtr(int i){ return (i % 2) ? odd : even; }
+```
+
+## 练习6.39
+
+(a) 非法  (b) 非法  (c) 合法
+
+## 练习6.40
+
+(b) 错误，因为若某个形参被赋予了默认值，它后面的所有形参都必须有默认值。
+
+## 练习6.41
+
+(a) 非法，未提供ht参数，没有符合的函数可调用
+
+(b) 合法
+
+(c) 合法，与初衷不符，`'*'`会赋值给`wd`参数。
+
+## 练习6.42
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_6/ex6_42.cpp)
+
+## 练习6.43
+
+两个都应该放到头文件中，因为(a) 是一个内联函数，而(b) 是函数声明。
+
+## 练习6.44
+
+```cpp
+inline bool isShorter(const string &s1, const string &s2)
+{
+    return s1.size() < s2.size();
+}
+```
+
+## 练习6.45
+
+比如，[Exercise 6.38](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_6#exercise-638)的`arrPtr`函数和[Exercise 6.42](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_6#exercise-642)的`make_plural`函数可以被定义为内联函数。但是[Exercise 6.4](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_6#exercise-64)的`func`函数不能被设置为内联函数，因为内敛机制用于优化规模较小、流程直接、频繁调用的函数，而且很多编译器不支持内联递归函数。
+
+## 练习6.46
+
+> 能把`isShorter`函数定义成`constexpr`函数吗？如果能，将它改写成`constexpr`函数；如果不能，说明原因。
+
+不能，`constexpr`函数是指能用于常量表达式的函数。有几项约定：函数的返回类型及所有形参的类型都得是字面值类型，而且函数体中必须有且只有一条`return `语句。
+
+但是`isShorter`的参数类型为`std::string`并不是字面值类型。
+
+**Reference**: https://github.com/ReadingLab/Discussion-for-Cpp/issues/22
+
+## 练习6.47
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_6/ex6_47.cpp)
+
+## 练习6.48
+
+这个循环让用户一直输入单词直到找到某个单词
+
+`assert`宏常用于检查**不能发生**的条件。当用户输入**EOF**时，断言总会发生。这是无意义的，所以使用`assert(!cin || s == sought)`更好。
+
+## 练习6.49
+
+> 什么是候选函数？什么是可行函数？
+
+候选函数：与调用对应的重载函数集，有两个特征，一是与被调用的函数同名，二是其声明在调用点可见
+
+可行函数：考察调用提供的实参，然后从候选函数中选出能被这组实参调用的函数，也有两个特征，一是其形参数量与本次调用提供的实参数量相等，二是每个实参的类型与对应的形参类型相同，或者能转换成形参的类型。
+
+## 练习6.50
+
+(a) 可行函数为`f(int, int)`和`f(double, double = 3.14)`,二义性拒绝调用
+
+(b) 可行函数为`f(int)`和`f(double, double = 3.14)`，最佳匹配为`f(int)`
+
+(c) 可行函数为`f(int, int)`和`f(double, double = 3.14)`,最佳匹配为`f(int, int)`
+
+(d) 可行函数为`f(int, int)`和`f(double, double = 3.14)`,最佳匹配为`f(double, double = 3.14)`
+
+## 练习6.51
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_6/ex6_51.cpp)

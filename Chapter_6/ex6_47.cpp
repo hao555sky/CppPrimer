@@ -8,16 +8,19 @@ using std::endl;
 
 void printVector(vector<int>::iterator beg, vector<int>::iterator end)
 {
-	if (beg != end){
+	#ifndef NDEBUG
+	    cout << "vector size is: " << end - beg << endl;
+	#endif
+	if(beg != end)
+	{
 		cout << (*beg) << endl;
 		printVector(beg + 1, end);
 	}
 }
+
 int main()
 {
-	vector<int> iv = {1, 2, 3, 4};
-	for(auto i : iv)
-		cout << i << endl;
-	printVector(iv.begin(), iv.end());
+	vector<int> ivec = {1, 2, 3, 4, 5};
+	printVector(ivec.begin(), ivec.end());
 	return 0;
 }
