@@ -402,3 +402,44 @@ inline bool isShorter(const string &s1, const string &s2)
 ## 练习6.51
 
 [code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_6/ex6_51.cpp)
+
+## 练习6.52
+
+(a) `char`提升为`int`  等级三     (b) `double` 通过算数类型转化为`int` 等级四
+
+## 练习6.53
+
+```cpp
+(a) int calc(int&, int&); // int&
+    int calc(const int&, const int&); // const int&
+(b) int calc(char*, char*); // char*
+	int calc(const char*, const char*); // const char*
+(c) int calc(char*, char*); // char *
+	int calc(char* const, char* const); // char*
+```
+
+所以(c)不合法，形参都是`char*`
+
+## 练习6.54
+
+```cpp
+int func(int a, int b);
+
+using pFunc1 = decltype(func) *;
+typedef decltype(func) *pFunc2;
+using pFunc3 = int (*)(int a, int b);
+using pFunc4 = int(int a, int b);
+typedef int (*pFunc5)(int a, int b);
+using pFunc6 = decltype(func);
+
+std::vector<pFunc1> vec1;
+std::vector<pFunc2> vec2;
+std::vector<pFunc3> vec3;
+std::vector<pFunc4*> vec4;
+std::vector<pFunc5> vec5;
+std::vector<pFunc6*> vec6;
+```
+
+## 练习6.55 && 练习6.56
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_6/ex6_55.cpp)
