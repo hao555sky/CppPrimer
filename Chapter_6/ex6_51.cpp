@@ -25,7 +25,7 @@ void f(double, double = 3.14)
 
 int main()
 {
-	// f(2.56, 42);
+	f(2.56, 42); // error : call of overloaded ‘f(double, int)’ is ambiguous
 	f(42);
 	f(42, 0);
 	f(2.56, 3.14);
