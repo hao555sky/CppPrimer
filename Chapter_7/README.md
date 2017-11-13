@@ -138,3 +138,59 @@ Sales_data(): units_sold(0), revenue(0){}
 
 ## 练习7.26
 
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_7/ex7_26.h)
+
+## 练习7.27
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_7/ex7_27.h)
+
+## 练习7.28
+
+如果`move`、`set`和`display`函数的返回类型不是`Screen&`而是`Screen`，则函数对对象的操作不会保存，因为是对临时对象做的更改。
+
+## 练习7.29
+
+**返回Sales_data**
+
+![Alt text](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_1/screenshots/ex7_29_a.png)
+
+**返回Sales_data&**
+
+![Alt text](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_1/screenshots/ex7_29_b.png)
+
+## 练习7.30
+
+**优点**
+
+* 更明确
+* 能够使用与成员变量名相同的参数名`void set(char c){ this->c = c; }`
+
+**缺点**
+
+* 代码冗余 `string get() const { return this->addr; }`
+
+## 练习7.31
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_7/ex7_31.h)
+
+## 练习7.32
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_7/ex7_32.h)
+
+## 练习7.33
+
+一旦遇到类名，定义的剩余部分就在类的作用域内了，这里的剩余部分包括参数列表和函数体。
+
+```cpp
+Screen::pos Screen::size() const
+{
+    return height * width;
+}
+```
+
+## 练习7.34
+
+**Error**
+
+> error: ‘pos’ has not been declared
+
