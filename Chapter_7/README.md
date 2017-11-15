@@ -194,3 +194,97 @@ Screen::pos Screen::size() const
 
 > error: ‘pos’ has not been declared
 
+## 练习7.35
+
+```cpp
+typedef string Type;
+Type initVal();  // string
+class Exercise{
+public:
+	typedef double Type;
+	Type setVal(Type);  // double
+	Type initVal();  // double
+private:
+	int val;
+};
+
+Type Exercise::setVal(Type parm)  // first: string. second: double
+{
+	val = parm + initVal();  // Exercise::initVal()
+    return val;
+}
+```
+
+**修改**
+
+```cpp
+typedef string Type;
+Type initVal();
+class Exercise{
+public:
+	typedef double Type;
+	Type setVal(Type);
+	Type initVal();
+private:
+	int val;
+};
+
+Exercise::Type Exercise::setVal(Type parm)
+{
+	val = parm + initVal();
+	return val;
+}
+```
+
+并且定义`Exercise::initVal()`
+
+## 练习7.36
+
+> 下面的初始值是错误的，请找出问题所在并尝试修改它。
+
+**修改**
+
+```cpp
+struct X{
+    X (int i, int j): base(i), rem(i % j) {}
+    int rem, base;
+};
+```
+
+## 练习7.37
+
+```cpp
+Sales_data first_item(cin);  // Sales_data(std::istream& is);  值由用户输入
+int main()
+{
+    Sales_data next;  // Sales_data(std::string s = " ");  s = " ", cnt = 0, revenue = 0;
+    Sales_data last("9-999-99999-9");  // Sales_data(std::string s = " "); s = "9-999-99999-9", cnt = 0, revenue = 0;
+}
+```
+
+## 练习7.38
+
+```cpp
+Sales_data::Sales_data(std::istream &is = std::cin);
+```
+
+## 练习7.39
+
+不合法，`error: call of overloaded ‘Sales_data()’ is ambiguous`
+
+## 练习7.40
+
+```cpp
+class Book
+{
+public:
+	Book() = default;
+	Book(string nauthor, double nprice): author(nauthor), price(nprice) {}
+	Book(istream& is) { read(is, *this); }
+
+private:
+	string author;
+	double price = 0;
+};
+```
+
