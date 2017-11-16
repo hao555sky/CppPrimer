@@ -288,3 +288,190 @@ private:
 };
 ```
 
+## 练习7.41
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_7/ex7_41.h)
+
+## 练习7.42
+
+```cpp
+class Book
+{
+public:
+	Book(string nauthor, double nprice): author(nauthor), price(nprice) {}
+    Book(): Book("", 0) {}
+	Book(istream& is): Book() { read(is, *this); }
+
+private:
+	string author;
+	double price = 0;
+};
+```
+
+## 练习7.43
+
+```cpp
+#include <vector>
+using std::vector;
+
+struct NoDefault
+{
+	NoDefault(int i){}
+
+};
+
+struct C
+{
+	C(): nd(0) {}
+	NoDefault nd;
+};
+
+int main()
+{
+	C c;
+	vector<C> vec(10);
+    return 0;
+}
+```
+
+## 练习7.44
+
+不合法，因为`NoDefault`类没有默认构造函数
+
+## 练习7.45
+
+合法，因为`C`有默认构造函数。
+
+## 练习7.46
+
+下面哪些论断是不正确的？为什么？
+
+> (a) 一个类必须至少提供一个构造函数。 （错误， 合成构造函数）
+>
+> (b) 默认构造函数是参数列表为空的构造函数。（错误， 默认构造函数是能以无参数调用的构造函数，以控参数列表定义，或以为每个参数提供默认参数）
+>
+> (c) 如果对于类来说不存在有意义的默认值，则类不应该提供默认构造函数（错误，应该提供）
+>
+> (d) 如果类没有定义默认构造函数，则编译器为其生成一个并把每个数据成员初始化成相应类型的默认值。（错误，只有在类没有明确定义任何构造函数的情况下，编译器才会生成默认构造函数）
+
+## 练习7.47
+
+是否需要从`string`到`Sales_data`的转换依赖于我们对用户使用该转换的看法。在此例中，这种转换可能是对的。`null_book`中的`string`可能表示了一个不存在的`ISBN`编号。
+
+优点
+
+* 阻止了构造函数定义的隐式转换
+* `explicit`构造函数只能用于直接初始化
+
+缺点
+
+* 关键字`explicit`只对一个实参的构造函数有效。需要多个实参的构造函数不能用于执行隐式转换，所以无需将这些构造函数指定为`explicit`的。只能在类内声明构造函数时使用`explicit`关键字，在类外部定义时不应重复。
+
+## 练习7.48
+
+两个都执行成功
+
+## 练习7.49
+
+```cpp
+(a) Sales_data &combine(Sales_data);  //  成功, 首先将s转化为Sales_data, 然后将临时量作为combine的参数传递
+(b) Sales_data &combine(Sales_data&);  // 失败， 首先将s转化为Sales_data, 然后将对临时量的引用作为combine的参数，但是传递临时量的非const引用给是错误的
+(c) Sales_data &combine(const Sales_data&) const;  // 失败，无法编译，因为是const成员函数，导致无法进行combine操作。
+```
+
+由于`combine`的参数是非const引用，所以不能传递一个临时量的引用作为参数。如果`combine`的参数是const引用，则可以传递临时量的引用。
+
+## 练习7.50
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_7/ex7_50.h)
+
+## 练习7.51
+
+比如一个函数
+
+```cpp
+int getSize(const std::vector<int> &);
+```
+
+如果`vector`没有把单参数构造方法设置为`explicit`, 我们这样调用的话
+
+```cpp
+getSize(34)
+```
+
+会产生歧义
+
+而`string`不同，如果我们用`string`代替`const char *`，如果我们的函数是这样的话
+
+```cpp
+void setYourName(std::string);
+setYourName("pezy");
+```
+
+是可以的。
+
+## 练习7.52
+
+聚合类使得用户可以直接访问其成员，并且具有特殊的初始化语法，当一个类满足如下条件时，它是聚合的：
+
+* 所有成员都是`public`的
+* 没有定义任何构造函数
+* 没有类内初始值
+* 没有基类，也没有`virtual`函数
+
+```cpp
+struct Sales_data
+{
+	string bookNo;
+	unsigned units_sold;
+	double revenue;
+};
+```
+
+## 练习7.50
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_7/ex7_53.h)
+
+## 练习7.54
+
+不应该，因为`constexpr`函数必须明确包含`return`语句
+
+## 练习7.55
+
+不是，因为`string`类型不是字面值类型 。只有内置类型存在字面值，没有类类型的字面值。因此，标准库类型没有字面值。
+
+## 练习7.56
+
+> 什么事类的静态成员？它有何优点？静态成员与普通成员有何区别？
+
+有时候类需要它的一些成员与类本身直接相关，而不是与类的各个对象保持关联。通过在成员的声明之前加上关键字`static`使得其与类关联在一起。类的静态成员存在于任何对象之外，对象补办韩任何与静态数据成员有关的数据。
+
+优点：静态成员为类所属，对象不需要存储，并且如果静态成员改变后，每个对象都会获得更新值
+
+区别
+
+* 静态成员可以是不完全类型
+* 静态成员可以作为默认实参
+
+## 练习7.57
+
+[code](https://github.com/hao555sky/CppPrimer/blob/master/Chapter_7/ex7_57.h)
+
+## 练习7.58
+
+```cpp
+class Example {
+public:
+    static constexpr double rate = 6.5;
+    static const int vecSize = 20;
+    static vector<double> vec;
+};
+
+int main()
+{
+	constexpr double Example::rate;
+	vector<double> Example::vec(Example::vecSize);
+    return 0;
+}
+```
+
